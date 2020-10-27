@@ -282,6 +282,7 @@ class SchemaResolveVisitorFactory {
             return (options & option.mask) != 0;
         }
 
+        
         @Override
         public Context getContext() {
             return context;

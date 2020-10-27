@@ -20,6 +20,8 @@ import com.alibaba.druid.sql.dialect.db2.ast.stmt.DB2SelectQueryBlock;
 import com.alibaba.druid.sql.dialect.db2.parser.DB2ExprParser;
 import com.alibaba.druid.sql.dialect.db2.parser.DB2Lexer;
 import com.alibaba.druid.sql.dialect.db2.parser.DB2StatementParser;
+import com.alibaba.druid.sql.dialect.gbasedbt.parser.GBasedbtLexer;
+import com.alibaba.druid.sql.dialect.gbasedbt.parser.GBasedbtStatementParser;
 import com.alibaba.druid.sql.dialect.h2.parser.H2StatementParser;
 import com.alibaba.druid.sql.dialect.hive.parser.HiveStatementParser;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
@@ -113,6 +115,9 @@ public class SQLParserUtils {
         if (JdbcUtils.ELASTIC_SEARCH.equals(dbType)) {
             return new MySqlStatementParser(sql);
         }
+        if (JdbcUtils.GBASEDBT.equals(dbType)) {
+        	return new GBasedbtStatementParser(sql);
+        }
 
         return new SQLStatementParser(sql, dbType);
     }
@@ -182,6 +187,9 @@ public class SQLParserUtils {
 
         if (JdbcUtils.PHOENIX.equals(dbType)) {
             return new PhoenixLexer(sql);
+        }
+        if (JdbcUtils.GBASEDBT.equals(dbType)) {
+        	return new GBasedbtLexer(sql);
         }
 
         return new Lexer(sql);

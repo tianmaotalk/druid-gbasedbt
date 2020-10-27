@@ -546,6 +546,8 @@ public final class JdbcUtils implements JdbcConstants {
             return "cloudscape";
         } else if (rawUrl.startsWith("jdbc:informix-sqli:") || rawUrl.startsWith("jdbc:log4jdbc:informix-sqli:")) {
             return "informix";
+        } else if (rawUrl.startsWith("jdbc:gbasedbt-sqli:") || rawUrl.startsWith("jdbc:log4jdbc:gbasedbt-sqli:")) {
+        	return GBASEDBT;
         } else if (rawUrl.startsWith("jdbc:timesten:")) {
             return "timesten";
         } else if (rawUrl.startsWith("jdbc:as400:")) {

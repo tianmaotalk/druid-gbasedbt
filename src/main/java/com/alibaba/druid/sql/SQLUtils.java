@@ -42,6 +42,8 @@ import com.alibaba.druid.sql.ast.statement.SQLUpdateSetItem;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateStatement;
 import com.alibaba.druid.sql.dialect.db2.visitor.DB2OutputVisitor;
 import com.alibaba.druid.sql.dialect.db2.visitor.DB2SchemaStatVisitor;
+import com.alibaba.druid.sql.dialect.gbasedbt.visitor.GBasedbtOutputVisitor;
+import com.alibaba.druid.sql.dialect.gbasedbt.visitor.GBasedbtSchemaStatVisitor;
 import com.alibaba.druid.sql.dialect.h2.visitor.H2OutputVisitor;
 import com.alibaba.druid.sql.dialect.h2.visitor.H2SchemaStatVisitor;
 import com.alibaba.druid.sql.dialect.hive.visitor.HiveOutputVisitor;
@@ -185,6 +187,14 @@ public class SQLUtils {
 
     public static String toOracleString(SQLObject sqlObject, FormatOption option) {
         return toSQLString(sqlObject, JdbcConstants.ORACLE, option);
+    }
+    
+    public static String toGBasedbtString(SQLObject sqlObject) {
+    	return toOracleString(sqlObject, null);
+    }
+    
+    public static String toGBasedbtString(SQLObject sqlObject, FormatOption option) {
+    	return toSQLString(sqlObject, JdbcConstants.GBASEDBT, option);
     }
 
     public static String toPGString(SQLObject sqlObject) {
@@ -440,6 +450,10 @@ public class SQLUtils {
         if (JdbcConstants.ELASTIC_SEARCH.equals(dbType)) {
             return new MySqlOutputVisitor(out);
         }
+        
+        if (JdbcConstants.GBASEDBT.equals(dbType)) {
+        	return new GBasedbtOutputVisitor(out);
+        }
 
         return new SQLASTOutputVisitor(out, dbType);
     }
@@ -485,6 +499,9 @@ public class SQLUtils {
 
         if (JdbcConstants.ELASTIC_SEARCH.equals(dbType)) {
             return new MySqlSchemaStatVisitor();
+        }
+        if (JdbcConstants.GBASEDBT.equals(dbType)) {
+        	return new GBasedbtSchemaStatVisitor();
         }
 
         return new SchemaStatVisitor();

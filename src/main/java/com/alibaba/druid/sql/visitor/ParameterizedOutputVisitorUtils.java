@@ -22,6 +22,7 @@ import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
 import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.dialect.db2.visitor.DB2OutputVisitor;
+import com.alibaba.druid.sql.dialect.gbasedbt.visitor.GBasedbtOutputVisitor;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlInsertStatement;
 import com.alibaba.druid.sql.dialect.mysql.visitor.MySqlASTVisitor;
 import com.alibaba.druid.sql.dialect.mysql.visitor.MySqlOutputVisitor;
@@ -294,6 +295,9 @@ public class ParameterizedOutputVisitorUtils {
 
         if (JdbcUtils.ELASTIC_SEARCH.equals(dbType)) {
             return new MySqlOutputVisitor(out, true);
+        }
+        if (JdbcUtils.GBASEDBT.equals(dbType)) {
+        	return new GBasedbtOutputVisitor(out, true);
         }
 
         return new SQLASTOutputVisitor(out, true);
