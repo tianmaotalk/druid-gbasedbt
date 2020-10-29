@@ -475,6 +475,8 @@ public final class JdbcUtils implements JdbcConstants {
             return JdbcConstants.KINGBASE_DRIVER;
         } else if (rawUrl.startsWith("jdbc:gbase:")) {
             return JdbcConstants.GBASE_DRIVER;
+        } else if (rawUrl.startsWith("jdbc:gbasedbt-sqli:")) {
+            return JdbcConstants.GBASEDBT_DRIVER;
         } else if (rawUrl.startsWith("jdbc:xugu:")) {
             return JdbcConstants.XUGU_DRIVER;
         } else if (rawUrl.startsWith("jdbc:hive:")) {
