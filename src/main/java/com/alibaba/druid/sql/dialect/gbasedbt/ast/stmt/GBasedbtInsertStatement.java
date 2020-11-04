@@ -15,8 +15,39 @@
  */
 package com.alibaba.druid.sql.dialect.gbasedbt.ast.stmt;
 
+import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.statement.SQLInsertStatement;
+import com.alibaba.druid.util.JdbcConstants;
 
 public class GBasedbtInsertStatement extends SQLInsertStatement implements GBasedbtStatement {
+    private String databaseName;
+    private String sql;
 
+    {
+        dbType = JdbcConstants.GBASEDBT;
+    }
+
+    public GBasedbtInsertStatement(){
+        dbType = JdbcConstants.GBASEDBT;
+    }
+    public void setDatabaseName(String databaseName) {
+        this.databaseName = databaseName;
+    }
+
+    public String getDatabaseName() {
+        return databaseName;
+    }
+
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
+
+    public String getSql() {
+        return sql;
+    }
+
+    @Override
+    public String toString() {
+        return SQLUtils.toSQLString(this, dbType);
+    }
 }
