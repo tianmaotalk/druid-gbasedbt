@@ -56,18 +56,20 @@ public class GBasedbtUpdateParser extends SQLStatementParser {
                 String dbName = val;
 //                 System.out.println("dbname=" + dbName);
                 udpateStatement.setDatabaseName(dbName);
-//                val = lexer.stringVal();
-//                pos = lexer.pos();
                 lexer.nextToken();
-//                if (lexer.token()!=Token.DOT){
-//                    lexer.reset(nextpos);
-//                    lexer.nextToken();
-//                }
+                val = lexer.stringVal();
+                lexer.nextToken();
+//                pos = lexer.pos();
+                if (lexer.token()!=Token.DOT){
+                    lexer.reset(nextpos);
+                    lexer.nextToken();
+                    lexer.nextToken();
+                }
             }
 //            String temp = lexer.stringVal();
 //            System.out.println("temp="+temp);
             if (lexer.token() == Token.DOT) {
-                val = lexer.stringVal();
+//                val = lexer.stringVal();
                 String schema = val;
 //                System.out.println("schema=" + schema);
                 udpateStatement.setSchemaName(schema);
