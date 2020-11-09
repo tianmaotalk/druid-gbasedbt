@@ -72,7 +72,7 @@ public interface JdbcConstants {
     String GBASE_DRIVER               = "com.gbase.jdbc.Driver";
     
     String GBASEDBT                   = "gbasedbt";
-    String GBASEDBT_DRIVER            = "com.gbasedbt.jdbc.Driver";
+    String GBASEDBT_DRIVER            = "com.gbasedbt.jdbc.IfxDriver";
 
     String XUGU                       = "xugu";
     String XUGU_DRIVER                = "com.xugu.cloudjdbc.Driver";
