@@ -40,21 +40,32 @@ public class GBasedbtUpdateParser extends SQLStatementParser {
     public SQLUpdateStatement parseUpdateStatement() {
         GBasedbtUpdateStatement udpateStatement = new GBasedbtUpdateStatement();
         if (lexer.token() == Token.UPDATE) {
+            int tablepos = lexer.pos();
             lexer.nextToken();
             String val = lexer.stringVal();
-            int pos = lexer.pos();
+            int nextpos=lexer.pos();
 
             lexer.nextToken();
+            if (lexer.token()==Token.SET){
+                lexer.reset(tablepos);
+                lexer.nextToken();
+            }
+
 
             if (lexer.token() == Token.COLON) {
                 String dbName = val;
-                /* System.out.println("dbname=" + dbName);*/
+//                 System.out.println("dbname=" + dbName);
                 udpateStatement.setDatabaseName(dbName);
-                val = lexer.stringVal();
+//                val = lexer.stringVal();
+//                pos = lexer.pos();
                 lexer.nextToken();
+//                if (lexer.token()!=Token.DOT){
+//                    lexer.reset(nextpos);
+//                    lexer.nextToken();
+//                }
             }
 //            String temp = lexer.stringVal();
-//            System.out.println(temp);
+//            System.out.println("temp="+temp);
             if (lexer.token() == Token.DOT) {
                 val = lexer.stringVal();
                 String schema = val;
@@ -63,6 +74,7 @@ public class GBasedbtUpdateParser extends SQLStatementParser {
                 lexer.nextToken();
                 val = lexer.stringVal();
             }
+//            System.out.println(val);
 
          /*   if(lexer.token()==Token.IDENTIFIER) {
                 String table = val;

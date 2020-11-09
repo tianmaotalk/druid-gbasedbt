@@ -104,51 +104,50 @@ public class GBasedbtExprParser extends SQLExprParser {
     }
 
 
-    public SQLExpr primary() {
-        final Token tok = lexer.token();
-
-        if (lexer.identifierEquals(FnvHash.Constants.OUTFILE)) {
-            lexer.nextToken();
-            SQLExpr file = primary();
-            SQLExpr expr = new MySqlOutFileExpr(file);
-
-            return primaryRest(expr);
-
-        }
-
-        switch (tok) {
-            case VARIANT:
-                SQLVariantRefExpr varRefExpr = new SQLVariantRefExpr(lexer.stringVal());
-                lexer.nextToken();
-                if (varRefExpr.getName().equalsIgnoreCase("@@global")) {
-                    accept(Token.DOT);
-                    varRefExpr = new SQLVariantRefExpr(lexer.stringVal(), true);
-                    lexer.nextToken();
-                } else if (varRefExpr.getName().equals("@") && lexer.token() == Token.LITERAL_CHARS) {
-                    varRefExpr.setName("@'" + lexer.stringVal() + "'");
-                    lexer.nextToken();
-                } else if (varRefExpr.getName().equals("@@") && lexer.token() == Token.LITERAL_CHARS) {
-                    varRefExpr.setName("@@'" + lexer.stringVal() + "'");
-                    lexer.nextToken();
-                }
-                return primaryRest(varRefExpr);
-            case VALUES:
-                lexer.nextToken();
-                if (lexer.token() != Token.LPAREN) {
-                    throw new ParserException("syntax error, illegal values clause. " + lexer.info());
-                }
-                return this.methodRest(new SQLIdentifierExpr("VALUES"), true);
-            case BINARY:
-                lexer.nextToken();
-                if (lexer.token() == Token.COMMA || lexer.token() == Token.SEMI || lexer.token() == Token.EOF) {
-                    return new SQLIdentifierExpr("BINARY");
-                } else {
-                    SQLUnaryExpr binaryExpr = new SQLUnaryExpr(SQLUnaryOperator.BINARY, expr());
-                    return primaryRest(binaryExpr);
-                }
-            default:
-                return super.primary();
-        }
-
-    }
+//    public SQLExpr primary() {
+//        final Token tok = lexer.token();
+//
+//        if (lexer.identifierEquals(FnvHash.Constants.OUTFILE)) {
+//            lexer.nextToken();
+//            SQLExpr file = primary();
+//            SQLExpr expr = new MySqlOutFileExpr(file);
+//
+//            return primaryRest(expr);
+//
+//        }
+//
+//        switch (tok) {
+//            case VARIANT:
+//                SQLVariantRefExpr varRefExpr = new SQLVariantRefExpr(lexer.stringVal());
+//                lexer.nextToken();
+//                if (varRefExpr.getName().equalsIgnoreCase("@@global")) {
+//                    accept(Token.DOT);
+//                    varRefExpr = new SQLVariantRefExpr(lexer.stringVal(), true);
+//                    lexer.nextToken();
+//                } else if (varRefExpr.getName().equals("@") && lexer.token() == Token.LITERAL_CHARS) {
+//                    varRefExpr.setName("@'" + lexer.stringVal() + "'");
+//                    lexer.nextToken();
+//                } else if (varRefExpr.getName().equals("@@") && lexer.token() == Token.LITERAL_CHARS) {
+//                    varRefExpr.setName("@@'" + lexer.stringVal() + "'");
+//                    lexer.nextToken();
+//                }
+//                return primaryRest(varRefExpr);
+//            case VALUES:
+//                lexer.nextToken();
+//                if (lexer.token() != Token.LPAREN) {
+//                    throw new ParserException("syntax error, illegal values clause. " + lexer.info());
+//                }
+//                return this.methodRest(new SQLIdentifierExpr("VALUES"), true);
+//            case BINARY:
+//                lexer.nextToken();
+//                if (lexer.token() == Token.COMMA || lexer.token() == Token.SEMI || lexer.token() == Token.EOF) {
+//                    return new SQLIdentifierExpr("BINARY");
+//                } else {
+//                    SQLUnaryExpr binaryExpr = new SQLUnaryExpr(SQLUnaryOperator.BINARY, expr());
+//                    return primaryRest(binaryExpr);
+//                }
+//            default:
+//                return super.primary();
+//        }
+//    }
 }

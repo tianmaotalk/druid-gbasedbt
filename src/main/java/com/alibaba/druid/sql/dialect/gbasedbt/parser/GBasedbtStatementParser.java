@@ -67,6 +67,7 @@ public class GBasedbtStatementParser extends SQLStatementParser {
                 String dbName = val;
 //				 System.out.println("dbname=" + dbName);
                 stmt.setDatabaseName(dbName);
+                lexer.nextToken();
                 val = lexer.stringVal();
                 lexer.nextToken();
             }
@@ -115,6 +116,7 @@ public class GBasedbtStatementParser extends SQLStatementParser {
                 String dbName = val;
 //				 System.out.println("dbname=" + dbName);
                 stmt.setDatabaseName(dbName);
+                lexer.nextToken();
                 val = lexer.stringVal();
                 lexer.nextToken();
             }

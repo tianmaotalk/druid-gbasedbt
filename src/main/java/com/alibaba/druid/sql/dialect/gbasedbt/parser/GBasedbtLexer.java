@@ -196,22 +196,24 @@ public class GBasedbtLexer extends Lexer {
 		mark = pos;
 		bufPos = 1;
 		if (ch==':') {
+//			pos++;
 			if (isIdentifierChar(charAt(pos + 1))) {
-				for (; ; ) {
-					ch = charAt(++pos);
-
-					if (!isIdentifierChar(ch)) {
-						break;
-					}
-
-					bufPos++;
-					continue;
-				}
-
+//				for (; ; ) {
+//					ch = charAt(++pos);
+//
+//					if (!isIdentifierChar(ch)) {
+//						break;
+//					}
+//
+//					bufPos++;
+//					continue;
+//				}
+				pos = pos + 1;
 			}
 			this.ch = charAt(pos);
 
-			stringVal = subString(mark+1, bufPos-1);
+//			stringVal = subString(mark+1, bufPos-1);
+			stringVal=":";
 			token = COLON;
 		}else {
 
